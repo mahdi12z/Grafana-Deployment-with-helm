@@ -27,11 +27,11 @@ helm show values grafana/grafana > grafana.values.yaml
 helm upgrade --install prometheus prometheus-community/prometheus \
   -n monitoring \
   --create-namespace \
-  --set alertmanager.persistentVolume.storageClass="local-path" \
+  --set alertmanager.persistentVolume.storageClass="longhorn" \
   --set alertmanager.persistentVolume.enabled=true \
-  --set server.persistentVolume.storageClass="local-path" \
+  --set server.persistentVolume.storageClass="longhorn" \
   --set server.persistentVolume.enabled=true \
-  --set pushgateway.persistentVolume.storageClass="local-path" \
+  --set pushgateway.persistentVolume.storageClass="longhorn" \
   --set pushgateway.persistentVolume.enabled=true
 
 ```
@@ -48,10 +48,13 @@ Avoids PVC binding issues commonly found in local/bare-metal clusters.
 ```bash
 helm upgrade --install grafana grafana/grafana \
   -n monitoring \
+  --create-namespace \
   --set persistence.enabled=true \
-  --set persistence.storageClassName="local-path" \
+  --set persistence.storageClassName="longhorn" \
   --set service.type=NodePort \
   --set adminPassword="admin123"
+
+
 
 ```
 
